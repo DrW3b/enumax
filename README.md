@@ -52,4 +52,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Feel free to contribute and enhance the tool!
 
+## Disclaimer
+
+Use Enumax responsibly and only on systems and networks that you have explicit permission to enumerate. Unauthorized use of this tool may violate applicable laws and regulations. The author is not responsible for any misuse or damage caused by Enumax.
+
+Always ensure that you have the legal right to perform subdomain enumeration activities on the target domain. Be respectful of privacy and adhere to ethical hacking principles.
+
+By using Enumax, you acknowledge and accept the terms of the license and the responsibility that comes with conducting security assessments.
+
 Happy enumerating!
