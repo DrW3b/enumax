@@ -24,40 +24,40 @@ print_colored() {
 mkdir -p "$OUTPUT_FOLDER"
 
 # Run sublist3r and display results
+sublist3r_output="$OUTPUT_FOLDER/sublist3r_subdomains.txt"
 print_colored "$GREEN" "Running sublist3r..."
-sublist3r_result=$(sublist3r -d "$TARGET" 2>/dev/null | sort -u)
-echo "$sublist3r_result" > "$OUTPUT_FOLDER/sublist3r_subdomains.txt"
-sublist3r_count=$(echo "$sublist3r_result" | wc -l)
+sublist3r -d "$TARGET" -o "$sublist3r_output" >/dev/null 2>&1
+sublist3r_count=$(cat "$sublist3r_output" | wc -l)
 print_colored "$YELLOW" "Subdomains collected by sublist3r: $sublist3r_count"
 
 # Run subfinder and display results
+subfinder_output="$OUTPUT_FOLDER/subfinder_subdomains.txt"
 print_colored "$GREEN" "Running subfinder..."
-subfinder_result=$(subfinder -d "$TARGET" 2>/dev/null | sort -u)
-echo "$subfinder_result" > "$OUTPUT_FOLDER/subfinder_subdomains.txt"
-subfinder_count=$(echo "$subfinder_result" | wc -l)
+subfinder -d "$TARGET" -o "$subfinder_output" >/dev/null 2>&1
+subfinder_count=$(cat "$subfinder_output" | wc -l)
 print_colored "$YELLOW" "Subdomains collected by subfinder: $subfinder_count"
 
 # Run findomain and display results
+findomain_output="$OUTPUT_FOLDER/findomain_subdomains.txt"
 print_colored "$GREEN" "Running findomain..."
-findomain_result=$(findomain -t "$TARGET" 2>/dev/null | sort -u)
-echo "$findomain_result" > "$OUTPUT_FOLDER/findomain_subdomains.txt"
-findomain_count=$(echo "$findomain_result" | wc -l)
+findomain -t "$TARGET" -q -u "$findomain_output" >/dev/null 2>&1
+findomain_count=$(cat "$findomain_output" | wc -l)
 print_colored "$YELLOW" "Subdomains collected by findomain: $findomain_count"
 
 # Run assetfinder and display results
+assetfinder_output="$OUTPUT_FOLDER/assetfinder_subdomains.txt"
 print_colored "$GREEN" "Running assetfinder..."
-assetfinder_result=$(assetfinder "$TARGET" 2>/dev/null | sort -u)
-echo "$assetfinder_result" > "$OUTPUT_FOLDER/assetfinder_subdomains.txt"
-assetfinder_count=$(echo "$assetfinder_result" | wc -l)
+assetfinder "$TARGET" > "$assetfinder_output" 2>/dev/null
+assetfinder_count=$(cat "$assetfinder_output" | wc -l)
 print_colored "$YELLOW" "Subdomains collected by assetfinder: $assetfinder_count"
 
 # Combine and unique subdomains
-cat "$OUTPUT_FOLDER"/*_subdomains.txt | sort -u > "$OUTPUT_FOLDER/all_subdomains.txt"
+cat "$OUTPUT_FOLDER"/*_subdomains.txt | sort -u > "$OUTPUT_FOLDER/all-subdomains.txt"
 
 # Remove individual tool output files (excluding all_subdomains.txt)
 rm "$OUTPUT_FOLDER"/*_subdomains.txt 2> /dev/null
 
 # Display total number of subdomains
-total_count=$(cat "$OUTPUT_FOLDER/all_subdomains.txt" | wc -l)
+total_count=$(cat "$OUTPUT_FOLDER/all-subdomains.txt" | wc -l)
 print_colored "$YELLOW" "Total combined and unique subdomains: $total_count"
-print_colored "$GREEN" "Subdomains enumeration completed. Results saved in: $OUTPUT_FOLDER/all_subdomains.txt"
+print_colored "$GREEN" "Subdomains enumeration completed. Results saved in: $OUTPUT_FOLDER/all-subdomains.txt"
