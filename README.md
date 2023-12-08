@@ -18,7 +18,7 @@ You can install these tools by following the instructions provided in their resp
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/yourusername/enumax.git
+    git clone https://github.com/DrW3b/enumax.git
     cd enumax
     ```
 
